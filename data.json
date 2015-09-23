@@ -1,0 +1,314 @@
+{
+  "levels": ["Preliminary", "Full"],
+  "docBase": "resources/doc/csc/",
+  "startDoc": "Start.md",
+  "helpDoc": "../Help.md",
+  "templates": [
+    {
+      "templateTitle": "TEON Metadata",
+      "levels": ["Preliminary", "Full"],
+      "version": "1.0.0",
+      "name": "My Record",
+      "code": null,
+      "docBase": "resources/doc/csc/",
+      "homeDoc": "Home.md",
+      "helpDoc": "../Help.md",
+      "sections": [
+
+        {
+          "name": "General Information",
+          "helpDoc": "ExistingCollections.md",
+          "groups": [
+            {
+              "questions": [
+                {
+                  "question": "Description",
+                  "guidance": "Describe the information produced, including its characteristics, temporal scope and scale, and geographic scope and scale, when available.",
+                  "emptyText": true,
+                  "config": {
+                    "xtype": "textarea",
+                    "grow": true,
+                    "growMin": 20
+                  }
+                }, {
+                  "question": "Type",
+                  "guidance": "Identify the type of data.",
+                  "config": {
+                    "xtype": "mycombo",
+                    "store": [
+                      ["Text"], ["Dataset"], ["Image"], ["MovingImage"], ["Software"], ["Collection"], ["Event"], ["InteractiveResource"], ["PhysicalObject"],
+                      ["Service"], ["Sound"], ["StillImage"]
+                    ],
+                    "maxWidth": 450
+                  }
+                }, {
+                  "question": "Restrictions",
+                  "guidance": "Identify any limitations on access or reuse (e.g., sensitive data, restricted data, software with license restrictions, etc.) and provide justification for restriction. Provide citation or documentation describing limitations if due to policies or legal reasons.",
+                  "emptyText": true,
+                  "config": {
+                    "xtype": "textarea",
+                    "grow": true,
+                    "growMin": 20
+                  }
+                }, {
+                  "question": "Format",
+                  "guidance": "Identify the formats in which the data are maintained and made available, e.g. PNG, Plain Text, GeoTiff, Comma Delimited, html, PDF, SQLite, etc.",
+                  "emptyText": true,
+                  "config": {
+                    "xtype": "textarea",
+                    "grow": true,
+                    "growMin": 20
+                  }
+                }, {
+                  "question": "Quality Checks",
+                  "level": 0,
+                  "guidance": "Identify the procedural steps used to evaluate the existing data, including verification, validation, and an assessment of usability.",
+                  "config": {
+                    "xtype": "textarea",
+                    "grow": true,
+                    "growMin": 20
+                  }
+                }, {
+                  "question": "Data Processing & Scientific Workflows",
+                  "level": 1,
+                  "guidance": "Describe any data processing steps or provide a scientific workflow used to manipulate the data, as appropriate.",
+                  "config": {
+                    "xtype": "textarea",
+                    "grow": true,
+                    "growMin": 20
+                  }
+                }, {
+                  "question": "Volume Estimate",
+                  "level": 1,
+                  "guidance": "Estimate the volume of information that will be generated in megabytes(MB).",
+                  "config": {
+                    "xtype": "numberfield"
+                  }
+                }, {
+                  "question": "Citation",
+                  "level": 1,
+                  "guidance": "Provide citation for data product(s). If the data product can be found online, provide a URL.",
+                  "config": {
+                    "xtype": "textarea",
+                    "grow": true,
+                    "growMin": 20
+                  }
+                }
+              ]
+            }
+          ]
+        }, {
+          "name": "Contact Information",
+          "helpDoc": "Contact.md",
+          "groups": [
+            {
+              "name": "Originator",
+              "repeatable": false,
+              "questions": [
+                {
+                  "question": "First name",
+                  "guidance": "Enter a first name."
+                }, {
+                  "question": "Last name",
+                  "guidance": "Enter a last name."
+                }, {
+                  "question": "Organization",
+                  "guidance": "Enter the organization name."
+                }, {
+                  "question": "Job title"
+                }, {
+                  "question": "E-mail",
+                  "config": {
+                    "vtype": "email"
+                  }
+                }
+              ]
+            }, {
+              "name": "Additional Contact",
+              "repeatable": true,
+              "questions": [
+                {
+                  "question": "First name",
+                  "guidance": "Enter a first name."
+                }, {
+                  "question": "Last name",
+                  "guidance": "Enter a last name."
+                }, {
+                  "question": "Organization",
+                  "guidance": "Enter the organization name."
+                }, {
+                  "question": "Project Role",
+                  "guidance": "Select or type a short description of the contact's role.",
+                  "config": {
+                    "xtype": "mycombo",
+                    "store": [
+                      ["Data Steward", "Person or agency that accepts accountability and responsibility for the data and ensures appropriate care and maintenance of the resource."],
+                      ["Metadata Steward", "Person or agency that prepares and maintains the metadata record."],
+                      ["Collaborator", "Person or agency other than the Originator that makes a significant intellectual contribution."],
+                      ["Metadata Host", "Person or Agency serving as a metadata clearinghouse for this record."],
+                      ["Primary Contact", "Person or agency to contact for acquiring knowledge about this data."],
+                      ["Publisher", "Person or agency that provides access to data resources."]
+                    ],
+                    "maxWidth": 450
+                  }
+                }, {
+                  "question": "Job title"
+                }, {
+                  "question": "E-mail",
+                  "config": {
+                    "vtype": "email"
+                  }
+                }
+              ]
+            }
+          ]
+        }, {
+          "name": "File Information",
+          "helpDoc": "RepeatingGroupSections.md",
+          "level": 0,
+          "questions": [],
+          "groups": [
+            {
+              "name": "File/Table",
+              "repeatable": true,
+              "sections": [
+                {
+                  "name": "File/Table Information",
+                  "level": 0,
+                  "config": {
+                    "xtype": "dmpgrid",
+                    "columns": [
+                      {
+                        "header": "File Name",
+                        "dataIndex": "filename",
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": false
+                        }
+                      }, {
+                        "header": "Description",
+                        "dataIndex": "description",
+                        "flex": 1,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": false
+                        }
+                      }, {
+                        "header": "Date",
+                        "dataIndex": "date",
+                        "editor": {
+                          "xtype": "datefield",
+                          "allowBlank": false
+                        }
+                      }
+                    ]
+                  }
+                }, {
+                  "name": "Fields",
+                  "level": 0,
+                  "config": {
+                    "xtype": "dmpgrid",
+                    "columns": [
+                      {
+                        "header": "Name",
+                        "dataIndex": "fieldname",
+                        "flex": 1,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Description",
+                        "dataIndex": "description",
+                        "flex": 2,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Data Type",
+                        "dataIndex": "datatype",
+                        "flex": 1,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Precision",
+                        "dataIndex": "precision",
+                        "editor": {
+                          "xtype": "numberfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Required",
+                        "dataIndex": "required",
+                        "editor": {
+                          "xtype": "checkboxfield",
+                          "allowBlank": false
+                        }
+                      }, {
+                        "header": "Min",
+                        "dataIndex": "min",
+                        "editor": {
+                          "xtype": "numberfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Max",
+                        "dataIndex": "max",
+                        "editor": {
+                          "xtype": "numberfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Units",
+                        "dataIndex": "units",
+                        "flex": 1,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Domain",
+                        "dataIndex": "domain",
+                        "flex": 1,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": true
+                        }
+                      }, {
+                        "header": "Reference",
+                        "dataIndex": "reference",
+                        "flex": 1,
+                        "editor": {
+                          "xtype": "textfield",
+                          "allowBlank": true
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }, {
+          "name": "Keywords",
+          "helpDoc": "Keywords.md",
+          "config": {
+            "xtype": "dmpkeywords",
+            "header": false
+          }
+        }, {
+          "name": "Map Location(s)",
+          "helpDoc": "Map.md",
+          "level": 0,
+          "config": {
+            "xtype": "dmpmappanel",
+            "title": "Map Location(s)"
+          }
+        }
+      ]
+    }
+  ]
+}

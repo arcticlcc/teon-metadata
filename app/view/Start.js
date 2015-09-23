@@ -36,7 +36,7 @@ Ext.define("DMPlanner.view.Start", {
                 xtype : 'button',
                 anchor : '100%',
                 itemId : 'startNewBtn',
-                text : 'Start a New Plan',
+                text : 'Start a New Record',
                 glyph: 'xf067@FontAwesome',
                 scale   : 'large',
                 disabled: true
@@ -44,7 +44,7 @@ Ext.define("DMPlanner.view.Start", {
                 xtype : 'button',
                 anchor : '100%',
                 itemId : 'startEditBtn',
-                text : 'Edit Existing Plan',
+                text : 'Edit Existing Record',
                 glyph: 'xf044@FontAwesome',
                 scale   : 'large',
                 disabled: true
@@ -54,7 +54,7 @@ Ext.define("DMPlanner.view.Start", {
                 itemId : 'startLoadBtn',
                 buttonOnly: true,
                 buttonConfig: {
-                    text : 'Load Plan from File*',
+                    text : 'Load Record(s) from File*',
                     glyph: 'xf093@FontAwesome',
                     scale   : 'large'
                 },

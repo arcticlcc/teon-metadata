@@ -59,7 +59,7 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
      * @cfg {number} maxZoomOnLoad
      * The maximum zoom level for {@link #property-zoomOnLoad}
      */
-     maxZoomOnLoad: 8,
+     maxZoomOnLoad: 6,
 
     /**
      * @cfg {Ext.toolbar.Toolbar} mapToolbar
@@ -71,7 +71,7 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
         var me = this,
             bdl = new OpenLayers.Layer.TMS("SDMI BDL(Alaska Albers)", "http://swmha.gina.alaska.edu/tilesrv/bdl/tile/",{
                     type: 'jpeg',
-                    wrapDateLine: true,
+                    wrapDateLine: false,
                     isBaseLayer: true,
                     getURL:function(bounds) {
                         var res = this.map.getResolution();
@@ -92,6 +92,15 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
                         }
                         return url + path;
                 }}),
+            teon = new OpenLayers.Layer.Vector("TEON", {
+                projection: "EPSG:4326",
+                strategies: [new OpenLayers.Strategy.Fixed()],
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "./resources/data/teon_layer.json",
+                    format: new OpenLayers.Format.GeoJSON()
+                }),
+                style: {fillColor: "rgb(0, 51, 255)", fillOpacity: 0.2, strokeOpacity: 0.5, strokeColor: "rgb(0, 51, 255)", strokeWidth: 4}
+            }),
             //saveStrategy = new OpenLayers.Strategy.Save(),
             //fixedStrategy = new OpenLayers.Strategy.Fixed(),
             //refreshStrategy = new OpenLayers.Strategy.Refresh(),
@@ -173,7 +182,7 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
           "units" : "esriMeters"
         };
         //The max extent for spherical mercator
-        var maxExtent = new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34);
+        var maxExtent = new OpenLayers.Bounds(-18567294.155249,9910953.5760116,-15773979.393597,11608467.100168);
         //Max extent from layerInfo above
         var layerMaxExtent = new OpenLayers.Bounds(
             layerInfo.fullExtent.xmin,
@@ -234,11 +243,11 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
             });
         var bdlMerc = new OpenLayers.Layer.XYZ( "GINA BDL",
                     "http://tiles.gina.alaska.edu/tilesrv/bdl/tile/${x}/${y}/${z}",
-                    {sphericalMercator: true,isBaseLayer: false,wrapDateLine: true, displayInLayerSwitcher:false,
+                    {sphericalMercator: true,isBaseLayer: false,wrapDateLine: false, displayInLayerSwitcher:false,
                         attribution: 'Best Data Layer provided by <a href="http://www.gina.alaska.edu">GINA</a>'});
 
         var topoBdl = new OpenLayers.Layer( "OSM/Imagery",
-                    {sphericalMercator: true,isBaseLayer: false,wrapDateLine: true, displayInLayerSwitcher:true});
+                    {sphericalMercator: true,isBaseLayer: false,wrapDateLine: false, displayInLayerSwitcher:true});
 
         topoBdl.events.on({
             "visibilitychanged": function(evt) {
@@ -253,10 +262,11 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
         });
 
         var plain = new OpenLayers.Layer( "Empty",
-                    {sphericalMercator: true,isBaseLayer: true,wrapDateLine: true, displayInLayerSwitcher:false});
+                    {sphericalMercator: true,isBaseLayer: true,wrapDateLine: false, displayInLayerSwitcher:false});
 
         var myMap = new OpenLayers.Map({
                 maxExtent: maxExtent,
+                restrictedExtent: maxExtent,
                 theme: null,
                 //StartBounds: layerMaxExtent,
                 units: (layerInfo.units == "esriFeet") ? 'ft' : 'm',
@@ -265,7 +275,7 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
                 projection: 'EPSG:' + layerInfo.spatialReference.wkid
         });
 
-        myMap.addLayers([plain,topoBdl,bdlMerc,baseOSM,nmap,vector]);
+        myMap.addLayers([plain,topoBdl,bdlMerc,baseOSM,nmap,teon,vector]);
 
         Ext.apply(me, {
 //            center: '12.3046875,51.48193359375',
@@ -643,6 +653,7 @@ Ext.define('DMPlanner.ux.map.PlanMap', {
                         //map.setCenter(bounds.getCenterLonLat(), zoom, false, false);
                     } else {
                         map.setCenter(bounds.getCenterLonLat(), me.maxZoomOnLoad, false, false);
+
                     }
                 };
 

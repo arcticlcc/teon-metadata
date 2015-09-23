@@ -4,7 +4,7 @@ Ext.define("DMPlanner.view.PlanList", {
 
     requires : ['Ext.Button', 'Ext.util.*', 'Ext.selection.RowModel', 'Ext.grid.plugin.RowEditing'],
 
-    title : 'Plans',
+    title : 'Metadata Records',
     columnLines : true,
     store : 'Plans',
     cls : 'planlist',
@@ -19,7 +19,7 @@ Ext.define("DMPlanner.view.PlanList", {
         xtype : 'gridcolumn',
         flex : 2,
         dataIndex : 'name',
-        text : 'Plans',
+        text : 'Title',
         editor : {
             xtype : 'textfield',
             allowBlank : false
@@ -27,6 +27,7 @@ Ext.define("DMPlanner.view.PlanList", {
     }, {
         xtype : 'gridcolumn',
         flex : 1,
+        hidden: true,
         dataIndex : 'code',
         text : 'Code',
         editor : {
@@ -45,7 +46,7 @@ Ext.define("DMPlanner.view.PlanList", {
     collapseFirst : false,
     tools : [{
         type : 'plus',
-        tooltip : 'Add a New Plan',
+        tooltip : 'Add a New Record',
         itemId : 'addPlan'
     }, {
         type : 'print',
